@@ -68,10 +68,19 @@ function ListItem(value){
 
 }
 
+var listName = document.getElementById("input");
 
 //Create a new ListItem, text depends on input value
 var buttonAdd = document.getElementById("button-add");
 buttonAdd.addEventListener("click", function(){
-  var listName = document.getElementById("input").value;
-  new ListItem(listName);
+  	new ListItem(listName.value);
+  	listName.value = "";
 });
+
+
+
+var submitHandler = function(){
+	new ListItem(listName.value);
+  	listName.value = "";
+	return false;
+}
