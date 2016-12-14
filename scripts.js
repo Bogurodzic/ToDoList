@@ -10,7 +10,7 @@ function ListItem(value){
 	document.getElementById("box-list").appendChild(this.item);
 
 	this.itemName = document.createElement("div");
-	this.itemName.classList.add("item-name");
+	this.itemName.classList.add("item-name", "normal");
 	this.item.appendChild(this.itemName);
 
 	//Create and append star button
@@ -40,10 +40,17 @@ function ListItem(value){
 	//Click - Highlight whole task at green
 	this.buttonStar.addEventListener("click", function(){
 
+		//if task had important class, remove important class and move the task to the begginig of normal tasks
 		if (self.itemName.classList.contains("important")){
-			
+
+			var firstNormalElement = document.querySelector(".normal").parentNode;
+			self.itemName.classList.remove("important");
+			self.itemName.classList.add("normal");
+			document.getElementById("box-list").insertBefore(self.item, firstNormalElement);
+			return;
 		}
 
+		self.itemName.classList.remove("normal");
 		//add important class to chosen task
 		self.itemName.classList.add("important");
 		//look for the first task in the list
