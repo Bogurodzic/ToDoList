@@ -43,9 +43,15 @@ function ListItem(value){
 		//if task had important class, remove important class and move the task to the begginig of normal tasks
 		if (self.itemName.classList.contains("important")){
 
-			var firstNormalElement = document.querySelector(".normal").parentNode;
+			var firstNormalElement = document.querySelector(".normal");
 			self.itemName.classList.remove("important");
 			self.itemName.classList.add("normal");
+				if (!firstNormalElement){
+					document.getElementById("box-list").removeChild(self.item);
+					document.getElementById("box-list").appendChild(self.item);
+					return;
+				}
+			firstNormalElement = firstNormalElement.parentNode;
 			document.getElementById("box-list").insertBefore(self.item, firstNormalElement);
 			return;
 		}
