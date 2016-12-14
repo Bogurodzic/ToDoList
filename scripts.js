@@ -39,10 +39,18 @@ function ListItem(value){
 
 	//Click - Highlight whole task at green
 	this.buttonStar.addEventListener("click", function(){
-		var first = document.querySelector(".item-name");
-		console.log(first);
-		console.log(self.itemName.parentNode);
+
+		if (self.itemName.classList.contains("important")){
+			
+		}
+
+		//add important class to chosen task
 		self.itemName.classList.add("important");
+		//look for the first task in the list
+		var firstElement = document.querySelector(".item");
+		//add move the task before first element in the list
+		document.getElementById("box-list").insertBefore(self.item, firstElement);
+
 	});
 
 }
