@@ -2,12 +2,12 @@
 function ListItem(value){
 
 	var self = this;
-
+	var boxList = document.getElementById("box-list");
 
 	//Create and append item
 	this.item = document.createElement("div");
 	this.item.classList.add("item");
-	document.getElementById("box-list").appendChild(this.item);
+	boxList.appendChild(this.item);
 
 	this.itemName = document.createElement("div");
 	this.itemName.classList.add("item-name", "normal");
@@ -47,12 +47,12 @@ function ListItem(value){
 			self.itemName.classList.remove("important");
 			self.itemName.classList.add("normal");
 				if (!firstNormalElement){
-					document.getElementById("box-list").removeChild(self.item);
-					document.getElementById("box-list").appendChild(self.item);
+					boxList.removeChild(self.item);
+					boxList.appendChild(self.item);
 					return;
 				}
 			firstNormalElement = firstNormalElement.parentNode;
-			document.getElementById("box-list").insertBefore(self.item, firstNormalElement);
+			boxList.insertBefore(self.item, firstNormalElement);
 			return;
 		}
 
@@ -62,7 +62,7 @@ function ListItem(value){
 		//look for the first task in the list
 		var firstElement = document.querySelector(".item");
 		//add move the task before first element in the list
-		document.getElementById("box-list").insertBefore(self.item, firstElement);
+		boxList.insertBefore(self.item, firstElement);
 
 	});
 
@@ -79,6 +79,9 @@ buttonAdd.addEventListener("click", function(){
 	if (isReapiting === true) {
 		window.alert("Awww, That taks already exist!")
 		return;
+	} else if ( listName.value === "") {
+		window.alert("In order to add task - name it.")
+		return;
 	}
   	new ListItem(listName.value);
   	listName.value = "";
@@ -93,6 +96,9 @@ var submitHandler = function(){
 		listName.value = "";
 		window.alert("Awww, That taks already exist!")
 		return false;
+	} else if ( listName.value === "") {
+		window.alert("In order to add task - name it.")
+		return;
 	}
 	new ListItem(listName.value);
 	return false;
@@ -104,7 +110,7 @@ function checkValue(valueToCheck){
 	var taskText = [];
 	taskText.push(document.querySelectorAll(".item-name-text"));
 	taskText[0].forEach(function(element){
-			if (valueToCheck == element.innerText){
+			if (valueToCheck.toLowerCase() == element.innerText.toLowerCase()){
 				isReapiting = true;
 				console.log("hmmm");
 			}
