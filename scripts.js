@@ -69,10 +69,17 @@ function ListItem(value){
 }
 
 var listName = document.getElementById("input");
+var isReapiting = false;
 
 //Create a new ListItem, text depends on input value
 var buttonAdd = document.getElementById("button-add");
 buttonAdd.addEventListener("click", function(){
+	//if value already exist nothing happen
+	checkValue(listName.value);
+	if (isReapiting === true) {
+		window.alert("Awww, That taks already exist!")
+		return;
+	}
   	new ListItem(listName.value);
   	listName.value = "";
 });
@@ -80,7 +87,29 @@ buttonAdd.addEventListener("click", function(){
 
 
 var submitHandler = function(){
+	//if value already exist nothing happen
+	checkValue(listName.value);
+	if (isReapiting === true) {
+		listName.value = "";
+		window.alert("Awww, That taks already exist!")
+		return false;
+	}
 	new ListItem(listName.value);
-  	listName.value = "";
 	return false;
 }
+
+//Iterate through all task and looks for repetition
+function checkValue(valueToCheck){
+	isReapiting = false;
+	var taskText = [];
+	taskText.push(document.querySelectorAll(".item-name-text"));
+	taskText[0].forEach(function(element){
+			if (valueToCheck == element.innerText){
+				isReapiting = true;
+				console.log("hmmm");
+			}
+	});
+}
+
+
+
